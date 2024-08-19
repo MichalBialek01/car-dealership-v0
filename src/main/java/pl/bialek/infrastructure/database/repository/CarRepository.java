@@ -3,7 +3,7 @@ package pl.bialek.infrastructure.database.repository;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.ParameterExpression;
 import jakarta.persistence.criteria.Root;
-import pl.bialek.business.dao.menagement.CarDAO;
+import pl.bialek.business.dao.CarDAO;
 import pl.bialek.infrastructure.database.entity.CarHistoryEntity;
 import pl.bialek.infrastructure.database.entity.CarToBuyEntity;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;

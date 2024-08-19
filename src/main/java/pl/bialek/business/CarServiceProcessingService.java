@@ -1,7 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
-import pl.bialek.business.dao.menagement.ServiceRequestProcessingDAO;
+import pl.bialek.business.dao.ServiceRequestProcessingDAO;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.business.menagement.Keys;
 import org.example.infrastructure.database.entity.*;

@@ -1,6 +1,6 @@
 package pl.bialek.infrastructure.database.repository;
 
-import pl.bialek.business.dao.menagement.SalesmanDAO;
+import pl.bialek.business.dao.SalesmanDAO;
 import pl.bialek.infrastructure.database.entity.SalesmanEntity;
 import org.hibernate.Session;
 

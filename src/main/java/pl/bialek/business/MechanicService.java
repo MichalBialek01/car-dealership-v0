@@ -1,7 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
-import pl.bialek.business.dao.menagement.MechanicDAO;
+import pl.bialek.business.dao.MechanicDAO;
 import pl.bialek.infrastructure.database.entity.MechanicEntity;
 
 import java.util.Optional;

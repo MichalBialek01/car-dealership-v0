@@ -1,6 +1,6 @@
 package pl.bialek.infrastructure.database.repository;
 
-import pl.bialek.business.dao.menagement.CarServiceRequestDAO;
+import pl.bialek.business.dao.CarServiceRequestDAO;
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 import org.hibernate.Session;
 

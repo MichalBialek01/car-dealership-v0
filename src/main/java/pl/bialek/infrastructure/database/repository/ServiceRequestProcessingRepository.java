@@ -1,6 +1,6 @@
 package pl.bialek.infrastructure.database.repository;
 
-import pl.bialek.business.dao.menagement.ServiceRequestProcessingDAO;
+import pl.bialek.business.dao.ServiceRequestProcessingDAO;
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.bialek.infrastructure.database.entity.PartEntity;
 import pl.bialek.infrastructure.database.entity.ServiceMechanicEntity;

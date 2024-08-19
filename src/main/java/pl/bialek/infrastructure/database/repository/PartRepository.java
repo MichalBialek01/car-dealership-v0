@@ -3,7 +3,7 @@ package pl.bialek.infrastructure.database.repository;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.ParameterExpression;
 import jakarta.persistence.criteria.Root;
-import pl.bialek.business.dao.menagement.PartDAO;
+import pl.bialek.business.dao.PartDAO;
 import pl.bialek.infrastructure.database.entity.PartEntity;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

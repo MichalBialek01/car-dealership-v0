@@ -1,7 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
-import pl.bialek.business.dao.menagement.PartDAO;
+import pl.bialek.business.dao.PartDAO;
 import pl.bialek.infrastructure.database.entity.PartEntity;
 
 import java.util.Optional;

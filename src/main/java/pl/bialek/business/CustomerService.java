@@ -1,7 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
-import pl.bialek.business.dao.menagement.CustomerDAO;
+import pl.bialek.business.dao.CustomerDAO;
 import pl.bialek.infrastructure.database.entity.AddressEntity;
 import pl.bialek.infrastructure.database.entity.CustomerEntity;
 

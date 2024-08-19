@@ -1,7 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
-import pl.bialek.business.dao.menagement.CarDAO;
+import pl.bialek.business.dao.CarDAO;
 import pl.bialek.infrastructure.database.entity.CarHistoryEntity;
 import pl.bialek.infrastructure.database.entity.CarToBuyEntity;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;

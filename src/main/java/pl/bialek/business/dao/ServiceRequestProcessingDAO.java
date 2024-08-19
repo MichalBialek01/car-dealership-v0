@@ -1,4 +1,4 @@
-package pl.bialek.business.dao.menagement;
+package pl.bialek.business.dao;
 
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.bialek.infrastructure.database.entity.ServiceMechanicEntity;

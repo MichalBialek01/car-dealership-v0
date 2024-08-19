@@ -1,6 +1,6 @@
 package pl.bialek.infrastructure.database.repository;
 
-import pl.bialek.business.dao.menagement.MechanicDAO;
+import pl.bialek.business.dao.MechanicDAO;
 import pl.bialek.infrastructure.database.entity.MechanicEntity;
 import org.hibernate.Session;
 

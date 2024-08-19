@@ -1,6 +1,6 @@
 package pl.bialek.infrastructure.database.repository;
 
-import pl.bialek.business.dao.menagement.CustomerDAO;
+import pl.bialek.business.dao.CustomerDAO;
 import pl.bialek.infrastructure.database.entity.CustomerEntity;
 import org.hibernate.Session;
 
