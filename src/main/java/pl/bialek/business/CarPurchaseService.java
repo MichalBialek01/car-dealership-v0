@@ -39,23 +39,23 @@ public class CarPurchaseService {
 
     private CustomerEntity createFirtTimeToBuyCustomer(Map<String, List<String>> inputData) {
         //Catching car - having single value (VIN)
-        CarToBuyEntity car = carService.findCarToBuy(inputData.get(Keys.Entity.CAR.toString()).get(0));
+        CarToBuyEntity car = carService.findCarToBuy(inputData.get(Keys.Domain.CAR.toString()).get(0));
         //Caching Salesman - having single value (PESEL)
-        SalesmanEntity salesman = salesmanSercice.findSalesman(inputData.get(Keys.Entity.SALESMAN.toString()).get(0));
+        SalesmanEntity salesman = salesmanSercice.findSalesman(inputData.get(Keys.Domain.SALESMAN.toString()).get(0));
         //Building Invoice basing on buingCar and salesman
         InvoiceEntity invoice = buildInvoice(car, salesman);
 
-        return dataPreparationService.buildCustomerEntity(inputData.get(Keys.Entity.CUSTOMER.toString()), invoice);
+        return dataPreparationService.buildCustomerEntity(inputData.get(Keys.Domain.CUSTOMER.toString()), invoice);
 
 
     }
 
     private CustomerEntity createNextTimeToBuyCustomer(Map<String, List<String>> inputData) {
-        CustomerEntity exisitngCustomer = customerService.findCustomer(inputData.get(Keys.Entity.CUSTOMER.toString()).get(0));
+        CustomerEntity exisitngCustomer = customerService.findCustomer(inputData.get(Keys.Domain.CUSTOMER.toString()).get(0));
         //Catching car - having single value (VIN)
-        CarToBuyEntity car = carService.findCarToBuy(inputData.get(Keys.Entity.CAR.toString()).get(0));
+        CarToBuyEntity car = carService.findCarToBuy(inputData.get(Keys.Domain.CAR.toString()).get(0));
         //Caching Salesman - having single value (PESEL)
-        SalesmanEntity salesman = salesmanSercice.findSalesman(inputData.get(Keys.Entity.SALESMAN.toString()).get(0));
+        SalesmanEntity salesman = salesmanSercice.findSalesman(inputData.get(Keys.Domain.SALESMAN.toString()).get(0));
         //Building Invoice basing on buingCar and salesman
         InvoiceEntity invoice = buildInvoice(car, salesman);
         exisitngCustomer.getInvoices().add(invoice);

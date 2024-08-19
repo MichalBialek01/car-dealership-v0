@@ -8,13 +8,11 @@ public interface Keys {
         DO_THE_SERVICE;
     }
 
-    enum Entity {
+    enum Domain {
         SALESMAN,
         CUSTOMER,
         MECHANIC,
-        CAR,
-        SERVICE,
-        PART
+        CAR
     }
 
     enum Constant {

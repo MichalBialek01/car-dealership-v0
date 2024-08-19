@@ -1,27 +1,56 @@
 package pl.bialek.business.menagement;
 
-import org.example.infrastructure.database.entity.*;
-import pl.bialek.infrastructure.database.entity.*;
+import org.springframework.stereotype.Service;
+import pl.bialek.domain.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Service
 public class DataPreparationService {
 
 
-
-    public List<Map<String, List<String>>> prepareFirstTimePurchaseData() {
-        //List of records that contains 3 Map pairs where key is Entity, and value is
-        return InputDataCache.getInputData(Keys.InputDataGroup.BUY_FIRST_TIME,
-                line -> prepareMap(line));
+    public List<CarPurchaseRequestInputData> prepareFirstTimePurchaseData() {
+        return InputDataCache.getInputData(Keys.InputDataGroup.BUY_FIRST_TIME, this::prepareMap).stream()
+                .map(this::prepareFirstTimePurchaseData)
+                .toList();
     }
 
-    public List<Map<String, List<String>>> prepareNextTimePurchaseData() {
-        //List of records that contains 3 Map pairs where key is Entity, and value is
-        return InputDataCache.getInputData(Keys.InputDataGroup.BUY_AGAIN,
-                line -> prepareMap(line));
+    private CarPurchaseRequestInputData prepareFirstTimePurchaseData(Map<String, List<String>> inputData) {
+        List<String> customerData = inputData.get(Keys.Domain.CUSTOMER.toString());
+        return CarPurchaseRequestInputData.builder()
+                .customerName(customerData.get(0))
+                .customerSurname(customerData.get(1))
+                .customerPhone(customerData.get(2))
+                .customerEmail(customerData.get(3))
+                .customerAddressCountry(customerData.get(4))
+                .customerAddressCity(customerData.get(5))
+                .customerAddressPostalCode(customerData.get(6))
+                .customerAddressStreet(customerData.get(7))
+                .carVin(inputData.get(Keys.Domain.CAR.toString()).get(0))
+                .salesmanPesel(inputData.get(Keys.Domain.SALESMAN.toString()).get(0))
+                .build();
     }
+
+
+    public List<CarPurchaseRequestInputData> prepareNextTimePurchaseData() {
+        return InputDataCache.getInputData(Keys.InputDataGroup.BUY_AGAIN, this::prepareMap).stream()
+                .map(this::prepareNextTimePurchaseData)
+                .toList();
+    }
+
+    private CarPurchaseRequestInputData prepareNextTimePurchaseData(Map<String, List<String>> inputData) {
+        return CarPurchaseRequestInputData.builder()
+                .customerEmail(inputData.get(Keys.Domain.CUSTOMER.toString()).get(0))
+                .carVin(inputData.get(Keys.Domain.CAR.toString()).get(0))
+                .salesmanPesel(inputData.get(Keys.Domain.SALESMAN.toString()).get(0))
+                .build();
+    }
+
 
     private Map<String, List<String>> prepareMap(String line) {
         //Spliting for "->" slices
@@ -36,26 +65,6 @@ public class DataPreparationService {
 
     }
 
-    public CustomerEntity buildCustomerEntity(List<String> inputData, InvoiceEntity invoice) {
-        return CustomerEntity
-                .builder()
-                .name(inputData.get(0))
-                .surname(inputData.get(1))
-                .phone(inputData.get(2))
-                .email(inputData.get(3))
-                .address(
-                        AddressEntity
-                                .builder()
-                                .country(inputData.get(0))
-                                .city(inputData.get(1))
-                                .postalCode(inputData.get(2))
-                                .address(inputData.get(3))
-                                .build()
-                )
-                .invoices(Set.of(invoice))
-                .build();
-    }
-
     public List<CarServiceRequest> createServiceRequests() {
         return InputDataCache.getInputData(Keys.InputDataGroup.SERVICE_REQUEST, this::prepareMap)
                 .stream()
@@ -67,20 +76,20 @@ public class DataPreparationService {
     private CarServiceRequest createServiceRequest(Map<String, List<String>> inputData) {
         return CarServiceRequest
                 .builder()
-                .customer(createCustomer(inputData.get(Keys.Entity.CUSTOMER.toString())))
-                .car(createCar(inputData.get(Keys.Entity.CAR.toString())))
+                .customer(createCustomer(inputData.get(Keys.Domain.CUSTOMER.toString())))
+                .car(createCar(inputData.get(Keys.Domain.CAR.toString())))
                 .customerComment(inputData.get(Keys.Constant.WHAT.toString()).get(0))
                 .build();
     }
 
-    private CarServiceRequest.Car createCar(List<String> inputData) {
+    private CarToService createCar(List<String> inputData) {
         if (inputData.size() == 1) {
-            return CarServiceRequest.Car
+            return CarToService
                     .builder()
                     .vin(inputData.get(0))
                     .build();
         }
-        return CarServiceRequest.Car.builder()
+        return CarToService.builder()
                 .vin(inputData.get(0))
                 .brand(inputData.get(1))
                 .model(inputData.get(2))
@@ -88,22 +97,22 @@ public class DataPreparationService {
                 .build();
     }
 
-    private CarServiceRequest.Customer createCustomer(List<String> inputData) {
+    private Customer createCustomer(List<String> inputData) {
 
         if (inputData.size() == 1) {
-            return CarServiceRequest.Customer
+            return Customer
                     .builder()
                     .email(inputData.get(0))
                     .build();
         }
-        return CarServiceRequest.Customer
+        return Customer
                 .builder()
                 .name(inputData.get(0))
                 .surname(inputData.get(1))
                 .phone(inputData.get(2))
                 .email(inputData.get(3))
                 .address(
-                        CarServiceRequest.Address
+                        Address
                                 .builder()
                                 .country(inputData.get(4))
                                 .city(inputData.get(5))
@@ -114,19 +123,19 @@ public class DataPreparationService {
                 .build();
     }
 
-    public List<CarServiceProcessingRequest> prepareServiceRequestToProcess() {
+    public List<CarServiceProcessingInputData> prepareServiceRequestToProcess() {
         return InputDataCache.getInputData(Keys.InputDataGroup.DO_THE_SERVICE, this::prepareMap)
                 .stream()
                 .map(this::createCarServiceRequestToProcess)
                 .toList();
     }
 
-    private CarServiceProcessingRequest createCarServiceRequestToProcess(Map<String, List<String>> inputData) {
+    private CarServiceProcessingInputData createCarServiceRequestToProcess(Map<String, List<String>> inputData) {
         List<String> what = inputData.get(Keys.Constant.WHAT.toString());
-        return CarServiceProcessingRequest
+        return CarServiceProcessingInputData
                 .builder()
-                .mechnicPesel(inputData.get(Keys.Entity.MECHANIC.toString()).get(0))
-                .carVin(inputData.get(Keys.Entity.CAR.toString()).get(0))
+                .mechnicPesel(inputData.get(Keys.Domain.MECHANIC.toString()).get(0))
+                .carVin(inputData.get(Keys.Domain.CAR.toString()).get(0))
                 .partSerialNumber(Optional.of(what.get(0)).filter(part -> !part.isBlank()).orElse(null))
                 .partQuantity(Optional.ofNullable(what.get(1)).filter(value -> !value.isBlank()).map(Integer::parseInt).orElse(null))
                 .serviceCode(what.get(2))
