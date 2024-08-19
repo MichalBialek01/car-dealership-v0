@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class InputDataCache {
+    private static final String FILE_PATH = "./src/main/resources/traffic_simulation.md";
 
     private static final Map<String, List<String>> inputData;
 
