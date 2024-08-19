@@ -2,7 +2,6 @@ package pl.bialek.business.menagement;
 
 public interface Keys {
     enum InputDataGroup {
-        INIT,
         BUY_FIRST_TIME,
         SERVICE_REQUEST,
         BUY_AGAIN,

@@ -12,39 +12,7 @@ import java.util.stream.Stream;
 
 public class DataPreparationService {
 
-    public List<?> prepareInitData() {
-        List<SalesmanEntity> salesman = InputDataCache.getInputData(
-                Keys.InputDataGroup.INIT,
-                Keys.Entity.SALESMAN,
-                InputDataMapper::mapSalesman
-        );
 
-        List<MechanicEntity> mechanics = InputDataCache.getInputData(
-                Keys.InputDataGroup.INIT,
-                Keys.Entity.MECHANIC,
-                InputDataMapper::mapMechanic
-        );
-
-        List<CarToBuyEntity> cars = InputDataCache.getInputData(
-                Keys.InputDataGroup.INIT,
-                Keys.Entity.CAR,
-                InputDataMapper::mapCarToBuy
-        );
-
-        List<ServiceEntity> services = InputDataCache.getInputData(
-                Keys.InputDataGroup.INIT,
-                Keys.Entity.SERVICE,
-                InputDataMapper::mapServices
-        );
-        List<PartEntity> parts = InputDataCache.getInputData(
-                Keys.InputDataGroup.INIT,
-                Keys.Entity.PART,
-                InputDataMapper::mapParts
-        );
-        return Stream.of(salesman, mechanics, cars, services, parts)
-                .flatMap(Collection::stream)
-                .toList();
-    }
 
     public List<Map<String, List<String>>> prepareFirstTimePurchaseData() {
         //List of records that contains 3 Map pairs where key is Entity, and value is
