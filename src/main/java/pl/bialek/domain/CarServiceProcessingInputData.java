@@ -3,10 +3,12 @@ package pl.bialek.domain;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
+
 @With
-@Value
 @Builder
-public class CarServiceProcessingRequest {
+@Value
+public class CarServiceProcessingInputData {
+
     String mechnicPesel;
     String carVin;
     String partSerialNumber;

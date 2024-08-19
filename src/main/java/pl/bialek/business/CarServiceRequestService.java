@@ -3,7 +3,6 @@ package pl.bialek.business;
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.menagement.CarServiceRequestDAO;
 import pl.bialek.business.menagement.DataPreparationService;
-import pl.bialek.domain.CarServiceRequest;
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.bialek.infrastructure.database.entity.CarToBuyEntity;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
