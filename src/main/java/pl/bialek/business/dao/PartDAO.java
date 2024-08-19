@@ -1,9 +1,9 @@
 package pl.bialek.business.dao;
 
-import pl.bialek.infrastructure.database.entity.PartEntity;
+import pl.bialek.domain.Part;
 
 import java.util.Optional;
 
 public interface PartDAO {
-    Optional<PartEntity> findBySerialNumber(String serialNumber);
+    Optional<Part> findBySerialNumber(String serialNumber);
 }

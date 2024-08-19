@@ -1,17 +1,17 @@
 package pl.bialek.business.dao;
 
-import pl.bialek.infrastructure.database.entity.CarHistoryEntity;
-import pl.bialek.infrastructure.database.entity.CarToBuyEntity;
-import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
+import pl.bialek.domain.CarHistory;
+import pl.bialek.domain.CarToBuy;
+import pl.bialek.domain.CarToService;
 
 import java.util.Optional;
 
 public interface CarDAO {
-    Optional<CarToBuyEntity> findCarToBuyByVin(String vin);
+    Optional<CarToBuy> findCarToBuyByVin(String vin);
 
-    Optional<CarToServiceEntity> findCarToServiceByVin(String vin);
+    Optional<CarToService> findCarToServiceByVin(String vin);
 
-    CarToServiceEntity saveCarToService(CarToServiceEntity entity);
+    CarToService saveCarToService(CarToService carToService);
 
-    CarHistoryEntity findCarHistoryByVin(String vinNumber);
+    CarHistory findCarHistoryByVin(String vinNumber);
 }

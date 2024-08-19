@@ -1,11 +1,11 @@
 package pl.bialek.business.dao;
 
-import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
-import pl.bialek.infrastructure.database.entity.ServiceMechanicEntity;
-import pl.bialek.infrastructure.database.entity.ServicePartEntity;
+import pl.bialek.domain.CarServiceRequest;
+import pl.bialek.domain.ServiceMechanic;
+import pl.bialek.domain.ServicePart;
 
 public interface ServiceRequestProcessingDAO {
-    void process(CarServiceRequestEntity carServiceRequest, ServiceMechanicEntity mechanicEntity, ServicePartEntity servicePartEntity);
+    void process(CarServiceRequest carServiceRequest, ServiceMechanic mechanic, ServicePart servicePart);
 
-    void process(CarServiceRequestEntity carServiceRequest, ServiceMechanicEntity mechanicEntity);
+    void process(CarServiceRequest carServiceRequest, ServiceMechanic mechanic);
 }
