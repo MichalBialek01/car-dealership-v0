@@ -19,7 +19,7 @@ public class CarServiceRequestRepository implements CarServiceRequestDAO {
             session.beginTransaction();
 
             String hqlQuery = """
-                   SELECT serviceRequest FROM CarServiceRequestEntity serviceRequest
+                   SELECT serviceRequest FROM CarServiceRequestJpaRepository serviceRequest
                    WHERE
                    serviceRequest.car.vin = :vin
                    AND serviceRequest.completedDateTime IS NULL

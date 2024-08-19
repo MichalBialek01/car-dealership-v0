@@ -17,7 +17,7 @@ public class SalesmanRepository implements SalesmanDAO {
             }
             session.beginTransaction();
 
-            String hqlQuery = "SELECT salesman FROM SalesmanEntity salesman WHERE salesman.pesel = :pesel";
+            String hqlQuery = "SELECT salesman FROM SalesmanJpaRepository salesman WHERE salesman.pesel = :pesel";
             Optional<SalesmanEntity> queryResult = session.createQuery(hqlQuery, SalesmanEntity.class)
                     .setParameter("pesel", pesel)
                     .uniqueResultOptional();

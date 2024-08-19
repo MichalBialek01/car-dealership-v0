@@ -17,7 +17,7 @@ public class MechanicRepository implements MechanicDAO {
             }
             session.beginTransaction();
 
-            String hqlQuery = "SELECT mechanic FROM MechanicEntity mechanic WHERE mechanic.pesel = :pesel";
+            String hqlQuery = "SELECT mechanic FROM MechanicJpaRepository mechanic WHERE mechanic.pesel = :pesel";
             Optional<MechanicEntity> queryResult = session.createQuery(hqlQuery, MechanicEntity.class)
                     .setParameter("pesel", pesel)
                     .uniqueResultOptional();

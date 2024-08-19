@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import pl.bialek.infrastructure.database.entity._EntityMarker;
-import pl.bialek.infrastructure.database.repository.jpa._JPAMarkerClass;
+import pl.bialek.infrastructure.database.repository.jpa._JpaMarker;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.Location;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
@@ -27,7 +27,7 @@ import java.util.Properties;
 
 @Configuration
 @AllArgsConstructor
-@EnableJpaRepositories(basePackageClasses = _JPAMarkerClass.class)
+@EnableJpaRepositories(basePackageClasses = _JpaMarker.class)
 @PropertySource({"classpath:database.properties"})
 @EnableTransactionManagement
 public class JPAConfiguration {
