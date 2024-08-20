@@ -2,8 +2,10 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.CustomerDAO;
-import pl.bialek.infrastructure.database.entity.AddressEntity;
-import pl.bialek.infrastructure.database.entity.CustomerEntity;
+import pl.bialek.domain.Address;
+import pl.bialek.domain.Customer;
+import pl.bialek.infrastructure.database..Address;
+import pl.bialek.infrastructure.database..Customer;
 
 import java.util.Optional;
 
@@ -12,30 +14,30 @@ public class CustomerService {
 
     private final CustomerDAO customerDAO;
 
-    public void issueInvoice(CustomerEntity customer) {
+    public void issueInvoice(Customer customer) {
         customerDAO.issueInvoice(customer);
     }
 
-    public CustomerEntity findCustomer(String email) {
-        Optional<CustomerEntity> customer = customerDAO.findByEmail(email);
+    public Customer findCustomer(String email) {
+        Optional<Customer> customer = customerDAO.findByEmail(email);
         if (email.isEmpty()) {
             throw new RuntimeException("Provided customer with email: [%s] doesn't exist".formatted(customer));
         }
         return customer.get();
     }
 
-    public void saveServiceRequest(CustomerEntity customer) {
+    public void saveServiceRequest(Customer customer) {
         customerDAO.saveServiceRequest(customer);
     }
 
-    public CustomerEntity saveCustomer(CarServiceRequest.Customer customer) {
-        CustomerEntity entity = CustomerEntity.builder()
+    public Customer saveCustomer(CarServiceRequest.Customer customer) {
+        Customer  = Customer.builder()
                 .name(customer.getName())
                 .surname(customer.getSurname())
                 .phone(customer.getPhone())
                 .email(customer.getEmail())
                 .address(
-                        AddressEntity
+                        Address
                                 .builder()
                                 .country(customer.getAddress().getCountry())
                                 .city(customer.getAddress().getCity())
@@ -43,7 +45,7 @@ public class CustomerService {
                                 .address(customer.getAddress().getAddress())
                                 .build())
                 .build();
-        return customerDAO.saveCustomer(entity);
+        return customerDAO.saveCustomer();
     }
 }
 

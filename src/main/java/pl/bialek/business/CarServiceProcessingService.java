@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.ServiceRequestProcessingDAO;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.business.menagement.Keys;
-import org.example.infrastructure.database.entity.*;
-import pl.bialek.infrastructure.database.entity.*;
+import org.example.infrastructure.database..*;
+import pl.bialek.domain.*;
+import pl.bialek.infrastructure.database..*;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -26,14 +27,14 @@ public class CarServiceProcessingService {
     }
 
     private void processRequest(CarServiceProcessingRequest request) {
-        MechanicEntity mechanic = mechanicService.findMechanic(request.getMechnicPesel());
-        //Checking that carToServiceEntity is existing
-        CarToServiceEntity carToServiceEntity = carService.findCarToService(request.getCarVin()).orElseThrow();
-        CarServiceRequestEntity carServiceRequest =  carToServiceRequestService.findAnyActiveRequest(request.getCarVin());
+        Mechanic mechanic = mechanicService.findMechanic(request.getMechnicPesel());
+        //Checking that carToService is existing
+        CarToService carToService = carService.findCarToService(request.getCarVin()).orElseThrow();
+        CarServiceRequest carServiceRequest =  carToServiceRequestService.findAnyActiveRequest(request.getCarVin());
 
-        ServiceEntity service = catalogService.findService(request.getServiceCode());
+        Service service = catalogService.findService(request.getServiceCode());
 
-        ServiceMechanicEntity mechanicEntity = buildServiceMechanicEntity(request,mechanic,carServiceRequest,service);
+        ServiceMechanic mechanic = buildServiceMechanic(request,mechanic,carServiceRequest,service);
 
         if(Keys.Constant.FINISHED.toString().equals(request.getDone())){
             carServiceRequest.setCompletedDateTime(OffsetDateTime.now());
@@ -41,21 +42,21 @@ public class CarServiceProcessingService {
 
         //Case if no parts are required
         if(Objects.isNull(request.getPartSerialNumber()) || Objects.isNull(request.getPartQuantity())){
-            serviceRequestProcessingDAO.process(carServiceRequest,mechanicEntity);
+            serviceRequestProcessingDAO.process(carServiceRequest,mechanic);
         }else {
-            PartEntity part = partCatalogService.findPart(request.getPartSerialNumber());
-            ServicePartEntity servicePartEntity = buildServicePartEntity(request,carServiceRequest,part);
-            serviceRequestProcessingDAO.process(carServiceRequest,mechanicEntity,servicePartEntity);
+            Part part = partCatalogService.findPart(request.getPartSerialNumber());
+            ServicePart servicePart = buildServicePart(request,carServiceRequest,part);
+            serviceRequestProcessingDAO.process(carServiceRequest,mechanic,servicePart);
         }
 
     }
 
-    private ServicePartEntity buildServicePartEntity(
+    private ServicePart buildServicePart(
             CarServiceProcessingRequest request,
-            CarServiceRequestEntity carServiceRequest,
-            PartEntity part) {
+            CarServiceRequest carServiceRequest,
+            Part part) {
 
-        return ServicePartEntity
+        return ServicePart
                 .builder()
                 .quantity(request.getPartQuantity())
                 .carServiceRequest(carServiceRequest)
@@ -63,13 +64,13 @@ public class CarServiceProcessingService {
                 .build();
     }
 
-    private ServiceMechanicEntity buildServiceMechanicEntity(
+    private ServiceMechanic buildServiceMechanic(
             CarServiceProcessingRequest request,
-            MechanicEntity mechanic,
-            CarServiceRequestEntity carServiceRequest,
-            ServiceEntity service) {
+            Mechanic mechanic,
+            CarServiceRequest carServiceRequest,
+            Service service) {
 
-        return ServiceMechanicEntity.builder()
+        return ServiceMechanic.builder()
                 .hours(request.getHours())
                 .comment(request.getComment())
                 .carServiceRequest(carServiceRequest)

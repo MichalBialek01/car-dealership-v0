@@ -2,7 +2,8 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.PartDAO;
-import pl.bialek.infrastructure.database.entity.PartEntity;
+import pl.bialek.domain.Part;
+import pl.bialek.infrastructure.database..Part;
 
 import java.util.Optional;
 
@@ -10,11 +11,11 @@ import java.util.Optional;
 public class PartCatalogService {
     private final PartDAO partDAO;
 
-    public PartEntity findPart(String partSerialNumber) {
-            Optional<PartEntity> partEntity = partDAO.findBySerialNumber(partSerialNumber);
-            if (partEntity.isEmpty()) {
+    public Part findPart(String partSerialNumber) {
+            Optional<Part> part = partDAO.findBySerialNumber(partSerialNumber);
+            if (part.isEmpty()) {
                 throw new RuntimeException("Provided part with part serial number: [%s] doesn't exist".formatted(partSerialNumber));
             }
-            return partEntity.get();
+            return part.get();
     }
 }

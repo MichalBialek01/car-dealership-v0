@@ -2,7 +2,8 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.ServiceDAO;
-import pl.bialek.infrastructure.database.entity.ServiceEntity;
+import pl.bialek.domain.Service;
+import pl.bialek.infrastructure.database..Service;
 
 import java.util.Optional;
 
@@ -10,12 +11,12 @@ import java.util.Optional;
 public class ServiceCatalogService {
     private final ServiceDAO serviceDAO;
 
-    public ServiceEntity findService(String serviceCode) {
-        Optional<ServiceEntity> serviceEntity = serviceDAO.findByServiceCode(serviceCode);
-        if (serviceEntity.isEmpty()) {
+    public Service findService(String serviceCode) {
+        Optional<Service> service = serviceDAO.findByServiceCode(serviceCode);
+        if (service.isEmpty()) {
             throw new RuntimeException("Provided Service with serviceCode: [%s] doesn't exist".formatted(serviceCode));
         }
-        return serviceEntity.get();
+        return service.get();
     }
 }
 

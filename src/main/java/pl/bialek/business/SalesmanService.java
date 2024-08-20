@@ -2,7 +2,8 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.SalesmanDAO;
-import pl.bialek.infrastructure.database.entity.SalesmanEntity;
+import pl.bialek.domain.Salesman;
+import pl.bialek.infrastructure.database..Salesman;
 
 import java.util.Optional;
 
@@ -10,8 +11,8 @@ import java.util.Optional;
 public class SalesmanService {
     private final SalesmanDAO salesmanDAO;
 
-    public SalesmanEntity findSalesman(String pesel) {
-        Optional<SalesmanEntity> salesman = salesmanDAO.findByPesel(pesel);
+    public Salesman findSalesman(String pesel) {
+        Optional<Salesman> salesman = salesmanDAO.findByPesel(pesel);
         if (salesman.isEmpty()) {
             throw new RuntimeException("Provided salesman with pesel: [%s] doesn't exist".formatted(pesel));
         }
