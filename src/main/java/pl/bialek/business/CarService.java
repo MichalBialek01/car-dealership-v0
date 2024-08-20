@@ -51,10 +51,15 @@ public class CarService {
 
 
     public void printCarHistory(String vinNumber) {
-        CarHistory carHistory = carDAO.findCarHistoryByVin(vinNumber);
+        CarHistory carHistoryByVin = carDAO.findCarHistoryByVin(vinNumber);
+        log.info("Car History for car with VIN: [{}]",vinNumber);
+        carHistoryByVin.getCarServiceRequests().forEach(this::printServiceRequest);
     }
 
-
-
+    private void printServiceRequest(CarHistory.CarServiceRequest carServiceRequest) {
+        log.info("Service request [{}]",carServiceRequest);
+        carServiceRequest.getServices().forEach(service -> log.info("Service: [{}]",service));
+        carServiceRequest.getParts().forEach(part -> log.info("Part: [{}]",part));
+    }
 
 }
