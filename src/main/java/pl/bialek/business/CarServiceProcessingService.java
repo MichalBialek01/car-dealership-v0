@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.ServiceRequestProcessingDAO;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.business.menagement.Keys;
-import org.example.infrastructure.database..*;
 import pl.bialek.domain.*;
-import pl.bialek.infrastructure.database..*;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -21,6 +19,7 @@ public class CarServiceProcessingService {
     private final ServiceCatalogService catalogService;
     private final PartCatalogService partCatalogService;
     private final ServiceRequestProcessingDAO serviceRequestProcessingDAO;
+
     public void process() {
         List<CarServiceProcessingInputData> toProcess = dataPreparationService.prepareServiceRequestToProcess();
         toProcess.forEach(this::processRequest);
@@ -29,24 +28,24 @@ public class CarServiceProcessingService {
     private void processRequest(CarServiceProcessingInputData request) {
         Mechanic mechanic = mechanicService.findMechanic(request.getMechnicPesel());
         //Checking that carToService is existing
-        CarToService carToService = carService.findCarToService(request.getCarVin()).orElseThrow();
-        CarServiceRequest carServiceRequest =  carToServiceRequestService.findAnyActiveRequest(request.getCarVin());
+        carService.findCarToService(request.getCarVin()).orElseThrow();
+        CarServiceRequest carServiceRequest = carToServiceRequestService.findAnyActiveRequest(request.getCarVin());
 
         Service service = catalogService.findService(request.getServiceCode());
 
-        ServiceMechanic mechanic = buildServiceMechanic(request,mechanic,carServiceRequest,service);
+        ServiceMechanic serviceMechanic = buildServiceMechanic(request, mechanic, carServiceRequest, service);
 
-        if(Keys.Constant.FINISHED.toString().equals(request.getDone())){
-            carServiceRequest.setCompletedDateTime(OffsetDateTime.now());
+        if (Keys.Constant.FINISHED.toString().equals(request.getDone())) {
+            carServiceRequest = carServiceRequest.withCompletedDateTime(OffsetDateTime.now());
         }
 
         //Case if no parts are required
-        if(Objects.isNull(request.getPartSerialNumber()) || Objects.isNull(request.getPartQuantity())){
-            serviceRequestProcessingDAO.process(carServiceRequest,mechanic);
-        }else {
+        if (Objects.isNull(request.getPartSerialNumber()) || Objects.isNull(request.getPartQuantity())) {
+            serviceRequestProcessingDAO.process(carServiceRequest, serviceMechanic);
+        } else {
             Part part = partCatalogService.findPart(request.getPartSerialNumber());
-            ServicePart servicePart = buildServicePart(request,carServiceRequest,part);
-            serviceRequestProcessingDAO.process(carServiceRequest,mechanic,servicePart);
+            ServicePart servicePart = buildServicePart(request, carServiceRequest, part);
+            serviceRequestProcessingDAO.process(carServiceRequest, serviceMechanic, servicePart);
         }
 
     }
