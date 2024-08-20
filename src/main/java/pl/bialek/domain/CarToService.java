@@ -2,6 +2,7 @@ package pl.bialek.domain;
 
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @With
@@ -17,4 +18,12 @@ public class CarToService {
     String model;
     Integer year;
     Set<CarServiceRequest> carServiceRequests;
+
+    public Boolean shouldExistInCarToBuy() {
+        //Checking if car was bought in this dealer
+        return Objects.nonNull(vin)
+                &&Objects.isNull(brand)
+                && Objects.isNull(model)
+                && Objects.isNull(year);
+    }
 }

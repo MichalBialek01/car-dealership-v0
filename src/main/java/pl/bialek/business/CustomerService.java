@@ -29,7 +29,7 @@ public class CustomerService {
     }
 
     public Customer saveCustomer(Customer customer) {
-        Customer = Customer.builder()
+        Customer savingCustomer = Customer.builder()
                 .name(customer.getName())
                 .surname(customer.getSurname())
                 .phone(customer.getPhone())
@@ -43,7 +43,7 @@ public class CustomerService {
                                 .address(customer.getAddress().getAddress())
                                 .build())
                 .build();
-        return customerDAO.saveCustomer();
+        return customerDAO.saveCustomer(savingCustomer);
     }
 }
 

@@ -7,14 +7,13 @@ import pl.bialek.domain.CarServiceRequest;
 import pl.bialek.domain.CarToBuy;
 import pl.bialek.domain.CarToService;
 import pl.bialek.domain.Customer;
-import pl.bialek.infrastructure.database..CarServiceRequest;
-import pl.bialek.infrastructure.database..CarToBuy;
-import pl.bialek.infrastructure.database..CarToService;
-import pl.bialek.infrastructure.database..Customer;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -43,11 +42,13 @@ public class CarServiceRequestService {
         Customer customer = customerService.findCustomer(request.getCustomer().getEmail());
 
         CarServiceRequest carServiceRequest = buildCarServiceRequest(request, car, customer);
-        customer.addServiceRequest(carServiceRequest);
+
+        Set<CarServiceRequest> existingCarServiceRequests = customer.getCarServiceRequests();
+        existingCarServiceRequests.add(carServiceRequest);
         customerService.saveServiceRequest(customer);
     }
 
-    private CarToService findInCarToBuyAndSaveInCarToService(CarServiceRequest.Car car) {
+    private CarToService findInCarToBuyAndSaveInCarToService(CarToService car) {
         CarToBuy carToBuy = carService.findCarToBuy(car.getVin());
         return carService.saveCarToService(carToBuy);
     }
@@ -80,6 +81,7 @@ public class CarServiceRequestService {
                 randomInt(10, 100)
         );
     }
+
     private Object randomInt(int min, int max) {
         return new Random().nextInt(max - min) + min;
     }
@@ -90,14 +92,15 @@ public class CarServiceRequestService {
         Customer customer = customerService.saveCustomer(request.getCustomer());
 
         CarServiceRequest carToServiceRequest = buildCarServiceRequest(request, car, customer);
-        customer.addServiceRequest(carToServiceRequest);
+        Set<CarServiceRequest> existingCarServiceRequests = customer.getCarServiceRequests();
+        existingCarServiceRequests.add(carToServiceRequest);
         customerService.saveServiceRequest(customer);
     }
 
     public CarServiceRequest findAnyActiveRequest(String carVin) {
-        Set<CarServiceRequest> serviceRequests =  carServiceRequestDAO.findActiveServiceRequestsByCarVin(carVin);
-         return serviceRequests.stream()
-                 .findAny()
-                 .orElseThrow( ()-> new RuntimeException("Could not find service request for car with VIN number: [%s] ".formatted(carVin)));
+        Set<CarServiceRequest> serviceRequests = carServiceRequestDAO.findActiveServiceRequestsByCarVin(carVin);
+        return serviceRequests.stream()
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Could not find service request for car with VIN number: [%s] ".formatted(carVin)));
     }
 }
