@@ -3,10 +3,7 @@ package pl.bialek.business.menagement;
 import org.springframework.stereotype.Service;
 import pl.bialek.domain.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -97,29 +94,40 @@ public class DataPreparationService {
                 .build();
     }
 
-    private Customer createCustomer(List<String> inputData) {
+    public Customer createCustomer(CarPurchaseRequestInputData inputData, Invoice invoice) {
+        return Customer.builder()
+                .name(inputData.getCustomerName())
+                .surname(inputData.getCustomerSurname())
+                .phone(inputData.getCustomerPhone())
+                .email(inputData.getCustomerEmail())
+                .address(Address.builder()
+                        .country(inputData.getCustomerAddressCountry())
+                        .city(inputData.getCustomerAddressCity())
+                        .postalCode(inputData.getCustomerAddressPostalCode())
+                        .address(inputData.getCustomerAddressStreet())
+                        .build())
+                .invoices(Set.of(invoice))
+                .build();
+    }
 
+
+    private Customer createCustomer(List<String> inputData) {
         if (inputData.size() == 1) {
-            return Customer
-                    .builder()
+            return Customer.builder()
                     .email(inputData.get(0))
                     .build();
         }
-        return Customer
-                .builder()
+        return Customer.builder()
                 .name(inputData.get(0))
                 .surname(inputData.get(1))
                 .phone(inputData.get(2))
                 .email(inputData.get(3))
-                .address(
-                        Address
-                                .builder()
-                                .country(inputData.get(4))
-                                .city(inputData.get(5))
-                                .postalCode(inputData.get(6))
-                                .address(inputData.get(7))
-                                .build()
-                )
+                .address(Address.builder()
+                        .country(inputData.get(4))
+                        .city(inputData.get(5))
+                        .postalCode(inputData.get(6))
+                        .address(inputData.get(7))
+                        .build())
                 .build();
     }
 

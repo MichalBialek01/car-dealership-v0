@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.CustomerDAO;
 import pl.bialek.domain.Address;
 import pl.bialek.domain.Customer;
-import pl.bialek.infrastructure.database..Address;
-import pl.bialek.infrastructure.database..Customer;
 
 import java.util.Optional;
 
@@ -30,8 +28,8 @@ public class CustomerService {
         customerDAO.saveServiceRequest(customer);
     }
 
-    public Customer saveCustomer(CarServiceRequest.Customer customer) {
-        Customer  = Customer.builder()
+    public Customer saveCustomer(Customer customer) {
+        Customer = Customer.builder()
                 .name(customer.getName())
                 .surname(customer.getSurname())
                 .phone(customer.getPhone())

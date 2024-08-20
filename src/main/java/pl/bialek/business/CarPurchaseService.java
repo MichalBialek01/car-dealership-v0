@@ -3,10 +3,7 @@ package pl.bialek.business;
 import lombok.AllArgsConstructor;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.business.menagement.Keys;
-import pl.bialek.domain.CarToBuy;
-import pl.bialek.domain.Customer;
-import pl.bialek.domain.Invoice;
-import pl.bialek.domain.Salesman;
+import pl.bialek.domain.*;
 import pl.bialek.infrastructure.database..CarToBuy;
 import pl.bialek.infrastructure.database..Customer;
 import pl.bialek.infrastructure.database..Invoice;
@@ -42,25 +39,25 @@ public class CarPurchaseService {
         nextTimeCustomers.forEach(customerService::issueInvoice);
     }
 
-    private Customer createFirtTimeToBuyCustomer(Map<String, List<String>> inputData) {
+    private Customer createFirtTimeToBuyCustomer(CarPurchaseRequestInputData inputData) {
         //Catching car - having single value (VIN)
-        CarToBuy car = carService.findCarToBuy(inputData.get(Keys.Domain.CAR.toString()).get(0));
+        CarToBuy car = carService.findCarToBuy(inputData.getCarVin());
         //Caching Salesman - having single value (PESEL)
-        Salesman salesman = salesmanSercice.findSalesman(inputData.get(Keys.Domain.SALESMAN.toString()).get(0));
+        Salesman salesman = salesmanSercice.findSalesman(inputData.getSalesmanPesel());
         //Building Invoice basing on buingCar and salesman
         Invoice invoice = buildInvoice(car, salesman);
 
-        return dataPreparationService.buildCustomer(inputData.get(Keys.Domain.CUSTOMER.toString()), invoice);
+        return dataPreparationService.createCustomer(inputData, invoice);
 
 
     }
 
-    private Customer createNextTimeToBuyCustomer(Map<String, List<String>> inputData) {
-        Customer exisitngCustomer = customerService.findCustomer(inputData.get(Keys.Domain.CUSTOMER.toString()).get(0));
+    private Customer createNextTimeToBuyCustomer(CarPurchaseRequestInputData inputData) {
+        Customer exisitngCustomer = customerService.findCustomer(inputData.getCustomerEmail());
         //Catching car - having single value (VIN)
-        CarToBuy car = carService.findCarToBuy(inputData.get(Keys.Domain.CAR.toString()).get(0));
+        CarToBuy car = carService.findCarToBuy(inputData.getCarVin());
         //Caching Salesman - having single value (PESEL)
-        Salesman salesman = salesmanSercice.findSalesman(inputData.get(Keys.Domain.SALESMAN.toString()).get(0));
+        Salesman salesman = salesmanSercice.findSalesman(inputData.getSalesmanPesel());
         //Building Invoice basing on buingCar and salesman
         Invoice invoice = buildInvoice(car, salesman);
         exisitngCustomer.getInvoices().add(invoice);

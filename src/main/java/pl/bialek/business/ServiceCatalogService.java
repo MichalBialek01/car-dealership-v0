@@ -3,7 +3,6 @@ package pl.bialek.business;
 import lombok.AllArgsConstructor;
 import pl.bialek.business.dao.ServiceDAO;
 import pl.bialek.domain.Service;
-import pl.bialek.infrastructure.database..Service;
 
 import java.util.Optional;
 

@@ -22,11 +22,11 @@ public class CarServiceProcessingService {
     private final PartCatalogService partCatalogService;
     private final ServiceRequestProcessingDAO serviceRequestProcessingDAO;
     public void process() {
-        List<CarServiceProcessingRequest> toProcess = dataPreparationService.prepareServiceRequestToProcess();
+        List<CarServiceProcessingInputData> toProcess = dataPreparationService.prepareServiceRequestToProcess();
         toProcess.forEach(this::processRequest);
     }
 
-    private void processRequest(CarServiceProcessingRequest request) {
+    private void processRequest(CarServiceProcessingInputData request) {
         Mechanic mechanic = mechanicService.findMechanic(request.getMechnicPesel());
         //Checking that carToService is existing
         CarToService carToService = carService.findCarToService(request.getCarVin()).orElseThrow();
@@ -52,7 +52,7 @@ public class CarServiceProcessingService {
     }
 
     private ServicePart buildServicePart(
-            CarServiceProcessingRequest request,
+            CarServiceProcessingInputData request,
             CarServiceRequest carServiceRequest,
             Part part) {
 
@@ -65,7 +65,7 @@ public class CarServiceProcessingService {
     }
 
     private ServiceMechanic buildServiceMechanic(
-            CarServiceProcessingRequest request,
+            CarServiceProcessingInputData request,
             Mechanic mechanic,
             CarServiceRequest carServiceRequest,
             Service service) {
