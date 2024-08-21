@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CarServiceRequestRepository implements CarServiceRequestDAO {
     private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
-    private final CarServiceRequestMapper carServiceRequestEntityMapper;
+    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
     public Set<CarServiceRequestEntity> findActiveServiceRequestsByCarVin(String carVin) {
