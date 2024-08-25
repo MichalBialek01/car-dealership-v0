@@ -2,6 +2,8 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import pl.bialek.business.dao.CarToBuyDAO;
+import pl.bialek.business.dao.CarToServiceDAO;
 import pl.bialek.domain.CarHistory;
 import pl.bialek.domain.CarToBuy;
 import pl.bialek.domain.CarToService;
@@ -12,10 +14,11 @@ import java.util.Optional;
 @Slf4j
 public class CarService {
 
-    private final CarDAO carDAO;
+    private final CarToServiceDAO carToServiceDAO;
+    private final CarToBuyDAO carToBuyDAO;
 
     public CarToBuy findCarToBuy(String vin) {
-        Optional<CarToBuy> carToBuyByVin = carDAO.findCarToBuyByVin(vin);
+        Optional<CarToBuy> carToBuyByVin = carToBuyDAO.findCarToBuyByVin(vin);
         if (carToBuyByVin.isEmpty()) {
             throw new RuntimeException("Provided car with vin: [%s] doesn't exist".formatted(vin));
         }
@@ -23,7 +26,7 @@ public class CarService {
     }
 
     public Optional<CarToService> findCarToService(String vin) {
-        return carDAO.findCarToServiceByVin(vin);
+        return carToServiceDAO.findCarToServiceByVin(vin);
     }
 
     public CarToService saveCarToService(CarToBuy carToBuy) {
@@ -33,22 +36,16 @@ public class CarService {
                 .model(carToBuy.getModel())
                 .year(carToBuy.getYear())
                 .build();
-        return carDAO.saveCarToService(carToService);
+        return carToServiceDAO.saveCarToService(carToService);
     }
 
-    public CarToService saveCarToService(CarToService car) {
-        CarToService carToService = CarToService.builder()
-                .vin(car.getVin())
-                .brand(car.getBrand())
-                .model(car.getModel())
-                .year(car.getYear())
-                .build();
-        return carDAO.saveCarToService(carToService);
+    public CarToService saveCarToService(CarToService carToService) {
+        return carToServiceDAO.saveCarToService(carToService);
     }
 
 
     public void printCarHistory(String vinNumber) {
-        CarHistory carHistoryByVin = carDAO.findCarHistoryByVin(vinNumber);
+        CarHistory carHistoryByVin = carToServiceDAO.findCarHistoryByVin(vinNumber);
         log.info("Car History for car with VIN: [{}]", vinNumber);
         carHistoryByVin.getCarServiceRequests().forEach(this::printServiceRequest);
     }

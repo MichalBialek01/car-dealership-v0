@@ -29,21 +29,7 @@ public class CustomerService {
     }
 
     public Customer saveCustomer(Customer customer) {
-        Customer savingCustomer = Customer.builder()
-                .name(customer.getName())
-                .surname(customer.getSurname())
-                .phone(customer.getPhone())
-                .email(customer.getEmail())
-                .address(
-                        Address
-                                .builder()
-                                .country(customer.getAddress().getCountry())
-                                .city(customer.getAddress().getCity())
-                                .postalCode(customer.getAddress().getPostalCode())
-                                .address(customer.getAddress().getAddress())
-                                .build())
-                .build();
-        return customerDAO.saveCustomer(savingCustomer);
+        return customerDAO.saveCustomer(customer);
     }
 }
 
