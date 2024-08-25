@@ -25,8 +25,8 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
     private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
     private final PartJpaRepository partJpaRepository;
     private final ServicePartJpaRepository servicePartJpaRepository;
-    private final ServiceMechanicEntityMapper serviceMechanicEntityMapper;
-    private final ServicePartEntityMapper servicePartEntityMapper;
+    private final ServiceMechanicMapper serviceMechanicMapper;
+    private final ServicePartMapper servicePartMapper;
 
     @Override
     public void process(
@@ -35,7 +35,7 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
             ServicePart servicePart) {
 
         PartEntity partEntity = partJpaRepository.findById(servicePart.getServicePartId()).orElseThrow();
-        ServicePartEntity servicePartEntity =  servicePartEntityMapper.mapToEntity(servicePart);
+        ServicePartEntity servicePartEntity =  servicePartMapper.mapToEntity(servicePart);
         servicePartEntity.setPart(partEntity);
         servicePartJpaRepository.saveAndFlush(servicePartEntity);
         process(carServiceRequest,serviceMechanic);
@@ -44,7 +44,7 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
     public void process(
             CarServiceRequest carServiceRequest,
             ServiceMechanic mechanic) {
-        ServiceMechanicEntity serviceMechanicEntity = serviceMechanicEntityMapper.mapToEntity(serviceMechanic);
+        ServiceMechanicEntity serviceMechanicEntity = serviceMechanicMapper.mapToEntity(serviceMechanic);
         serviceMechanicJpaRepository.saveAndFlush(serviceMechanicEntity);
 
         if (Objects.nonNull(carServiceRequest.getCompletedDateTime())) {
