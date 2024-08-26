@@ -4,5 +4,7 @@ import pl.bialek.domain.CarServiceRequest;
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 
 public interface CarServiceRequestMapper {
-    CarServiceRequestEntity mapFromEntity(CarServiceRequest carServiceRequest);
+    CarServiceRequest mapFromEntity(CarServiceRequestEntity carServiceRequestEntity);
+
+    CarServiceRequestEntity mapToEntity(CarServiceRequest carServiceRequest);
 }

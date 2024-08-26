@@ -36,7 +36,7 @@ public class CustomerRepository implements CustomerDAO {
     }
     @Override
     public void issueInvoice(Customer customer) {
-        CustomerEntity customerToSave = customerEntityMapper.mapToEntity(customer);
+        CustomerEntity customerToSave = customerMapper.mapToEntity(customer);
         CustomerEntity customerSaved = customerJpaRepository.saveAndFlush(customerToSave);
 
         customer.getInvoices().stream()

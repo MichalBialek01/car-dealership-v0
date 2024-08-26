@@ -25,5 +25,5 @@ public interface CarToServiceJpaRepository extends JpaRepository<CarToServiceEnt
 )
     CarToServiceEntity findCarHistoryByVin(String vinNumber);
 
-    Optional<CarToService> findByVin(String vin);
+    Optional<CarToServiceEntity> findByVin(String vin);
 }

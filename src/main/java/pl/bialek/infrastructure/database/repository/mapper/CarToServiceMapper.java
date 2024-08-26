@@ -5,9 +5,13 @@ import pl.bialek.domain.CarToService;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 
 public interface CarToServiceMapper {
-    CarToService mapFromEntity(CarToServiceEntity carToService);
 
-    CarToServiceEntity mapToEntity(CarToService carToService);
+    CarToService mapFromEntity(CarToServiceEntity entity);
 
-    CarHistory mapFromEntity(String vinNumber, CarToServiceEntity carHistoryByVin);
-}
+    CarHistory mapFromEntity(String vin, CarToServiceEntity entity);
+
+    CarToServiceEntity mapToEntity(CarToService car);
+
+};
+
+

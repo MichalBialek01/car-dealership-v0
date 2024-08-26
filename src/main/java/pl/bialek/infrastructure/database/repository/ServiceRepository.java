@@ -16,7 +16,7 @@ public class ServiceRepository implements ServiceDAO {
     private final ServiceMapper serviceMapper;
     @Override
     public Optional<Service> findByServiceCode(String serviceCode) {
-        serviceJpaRepository.findByServiceCode(serviceCode)
+        return serviceJpaRepository.findByServiceCode(serviceCode)
                 .map(serviceMapper::mapFromEntity);
     }
 }

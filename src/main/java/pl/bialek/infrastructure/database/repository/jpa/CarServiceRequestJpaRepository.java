@@ -17,5 +17,5 @@ public interface CarServiceRequestJpaRepository extends JpaRepository<CarService
         AND
         carServiceRequest.car.vin = :vin
 """)
-    Set<CarServiceRequest> findActiveServiceRequestsByCarVin(final @Param("vin") String carVin);
+    Set<CarServiceRequestEntity> findActiveServiceRequestsByCarVin(final @Param("vin") String carVin);
 }

@@ -45,7 +45,7 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
     @Override
     public void process(
             CarServiceRequest carServiceRequest,
-            ServiceMechanic mechanic) {
+            ServiceMechanic serviceMechanic) {
         ServiceMechanicEntity serviceMechanicEntity = serviceMechanicMapper.mapToEntity(serviceMechanic);
         serviceMechanicJpaRepository.saveAndFlush(serviceMechanicEntity);
 
