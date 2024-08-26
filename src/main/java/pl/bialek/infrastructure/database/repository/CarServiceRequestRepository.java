@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.CarServiceRequestDAO;
 import pl.bialek.domain.CarServiceRequest;
-import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
 import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestMapper;
 

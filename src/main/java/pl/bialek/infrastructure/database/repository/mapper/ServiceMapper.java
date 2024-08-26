@@ -7,6 +7,6 @@ import pl.bialek.domain.Service;
 import pl.bialek.infrastructure.database.entity.ServiceEntity;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ServiceMapper {
-    @Mapping(target = "invoices",ignore = true)
+    @Mapping(target = "serviceMechanics",ignore = true)
     Service mapFromEntity(ServiceEntity serviceEntity);
 }

@@ -5,9 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.CustomerDAO;
 import pl.bialek.domain.Customer;
 import pl.bialek.infrastructure.database.entity.CarServiceRequestEntity;
-import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 import pl.bialek.infrastructure.database.entity.CustomerEntity;
-import org.hibernate.Session;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.CustomerJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.InvoiceJpaRepository;
@@ -18,6 +16,7 @@ import pl.bialek.infrastructure.database.repository.mapper.InvoiceMapper;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 @Repository
 @AllArgsConstructor
 public class CustomerRepository implements CustomerDAO {
@@ -29,11 +28,13 @@ public class CustomerRepository implements CustomerDAO {
     private final CustomerMapper customerMapper;
     private final InvoiceMapper invoiceMapper;
     private final CarServiceRequestMapper carServiceRequestMapper;
+
     @Override
     public Optional<Customer> findByEmail(String email) {
         return customerJpaRepository.findByEmail(email)
                 .map(customerMapper::mapFromEntity);
     }
+
     @Override
     public void issueInvoice(Customer customer) {
         CustomerEntity customerToSave = customerMapper.mapToEntity(customer);
@@ -59,6 +60,7 @@ public class CustomerRepository implements CustomerDAO {
 
         carServiceRequestJpaRepository.saveAllAndFlush(carServiceRequestEntities);
     }
+
     @Override
     public Customer saveCustomer(Customer customer) {
         CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
