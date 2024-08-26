@@ -24,8 +24,12 @@ dependencies {
     implementation "org.springframework.data:spring-data-jpa:${springDataVersion}"
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "org.mapstruct:$mapstructVersion"
-    implementation "org.mapstruct:$mapstructVersion"
+
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    implementation "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+//    implementation "org.mapstruct:$mapstructVersion"
+//    implementation "org.mapstruct:$mapstructVersion"
 
 
     implementation "org.hibernate.orm:hibernate-core:$hibernateVersion"
