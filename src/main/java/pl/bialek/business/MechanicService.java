@@ -1,11 +1,12 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.MechanicDAO;
 import pl.bialek.domain.Mechanic;
 
 import java.util.Optional;
-
+@Service
 @AllArgsConstructor
 public class MechanicService {
 

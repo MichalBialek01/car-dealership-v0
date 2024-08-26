@@ -1,12 +1,13 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.CustomerDAO;
 import pl.bialek.domain.Address;
 import pl.bialek.domain.Customer;
 
 import java.util.Optional;
-
+@Service
 @AllArgsConstructor
 public class CustomerService {
 

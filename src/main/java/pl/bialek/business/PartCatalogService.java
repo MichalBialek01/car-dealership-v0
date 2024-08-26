@@ -1,11 +1,12 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.PartDAO;
 import pl.bialek.domain.Part;
 
 import java.util.Optional;
-
+@Service
 @AllArgsConstructor
 public class PartCatalogService {
     private final PartDAO partDAO;

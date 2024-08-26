@@ -6,7 +6,6 @@ import pl.bialek.domain.Customer;
 import pl.bialek.infrastructure.database.entity.InvoiceEntity;
 
 @Repository
-
 public interface InvoiceJpaRepository extends JpaRepository<InvoiceEntity, Integer> {
 
 
