@@ -9,7 +9,7 @@ import pl.bialek.domain.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
-
+@org.springframework.stereotype.Service
 @AllArgsConstructor
 public class CarServiceProcessingService {
     private final DataPreparationService dataPreparationService;

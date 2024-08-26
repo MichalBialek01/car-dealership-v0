@@ -2,6 +2,7 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.CarToBuyDAO;
 import pl.bialek.business.dao.CarToServiceDAO;
 import pl.bialek.domain.CarHistory;
@@ -9,7 +10,7 @@ import pl.bialek.domain.CarToBuy;
 import pl.bialek.domain.CarToService;
 
 import java.util.Optional;
-
+@Service
 @AllArgsConstructor
 @Slf4j
 public class CarService {

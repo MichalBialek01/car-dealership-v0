@@ -1,13 +1,14 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.domain.*;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
-
+@Service
 @AllArgsConstructor
 public class CarPurchaseService {
 //That class provides functionality to buy a car by costumers, it means that seller issues invoice for certain car.

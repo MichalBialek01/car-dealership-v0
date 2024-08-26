@@ -1,6 +1,7 @@
 package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.CarServiceRequestDAO;
 import pl.bialek.business.menagement.DataPreparationService;
 import pl.bialek.domain.CarServiceRequest;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 @AllArgsConstructor
 public class CarServiceRequestService {
     private final DataPreparationService dataPreparationService;

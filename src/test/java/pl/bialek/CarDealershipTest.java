@@ -1,14 +1,18 @@
 package pl.bialek;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.business.*;
 import org.example.business.dao.menagement.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import pl.bialek.business.*;
 import pl.bialek.business.dao.*;
 import pl.bialek.business.menagement.CarDealershipManagementService;
 import pl.bialek.business.menagement.DataPreparationService;
 import org.example.infrastructure.database.repository.*;
 import org.junit.jupiter.api.*;
+import pl.bialek.infrastructure.configuration.AppConfiguration;
 import pl.bialek.infrastructure.database.repository.*;
 
 /*
@@ -16,16 +20,17 @@ import pl.bialek.infrastructure.database.repository.*;
     Typically test classes shouldn't be used in this way, but for this particular example it does.
 
  */
+
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
+@SpringJUnitConfig(classes = {AppConfiguration.class})
+@AllArgsConstructor(onConstructor = @__(@Autowired)) // Replaces AAC wit autowired annotation
 public class CarDealershipTest {
 
-    private CarDealershipManagementService carDealershipManagementService;
-    private CarPurchaseService carPurchaseService;
-    private CarServiceRequestService carServiceRequestService;
-    private CarServiceProcessingService carServiceProcessingService;
-    private CarService carService;
+    private final CarPurchaseService carPurchaseService;
+    private final CarServiceRequestService carServiceRequestService;
+    private final CarServiceProcessingService carServiceProcessingService;
+    private final CarService carService;
 
 
     @Test
