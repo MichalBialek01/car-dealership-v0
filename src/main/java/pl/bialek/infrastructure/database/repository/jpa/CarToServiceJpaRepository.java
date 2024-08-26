@@ -3,7 +3,10 @@ package pl.bialek.infrastructure.database.repository.jpa;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.bialek.domain.CarToService;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
+
+import java.util.Optional;
 
 @Repository
 
@@ -22,4 +25,5 @@ public interface CarToServiceJpaRepository extends JpaRepository<CarToServiceEnt
 )
     CarToServiceEntity findCarHistoryByVin(String vinNumber);
 
+    Optional<CarToService> findByVin(String vin);
 }

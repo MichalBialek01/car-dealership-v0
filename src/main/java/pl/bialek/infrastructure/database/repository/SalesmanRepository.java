@@ -8,6 +8,7 @@ import pl.bialek.infrastructure.database.entity.SalesmanEntity;
 import org.hibernate.Session;
 import pl.bialek.infrastructure.database.repository.jpa.MechanicJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.SalesmanJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.SalesmanMapper;
 
 import java.util.Objects;
 import java.util.Optional;

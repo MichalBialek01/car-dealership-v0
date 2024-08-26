@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.ServiceDAO;
 import pl.bialek.domain.Service;
 import pl.bialek.infrastructure.database.repository.jpa.ServiceJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.ServiceMapper;
 
 import java.util.Optional;
 

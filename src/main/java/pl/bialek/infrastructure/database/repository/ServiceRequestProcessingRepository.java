@@ -14,6 +14,8 @@ import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepo
 import pl.bialek.infrastructure.database.repository.jpa.PartJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.ServiceMechanicJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.ServicePartJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.ServiceMechanicMapper;
+import pl.bialek.infrastructure.database.repository.mapper.ServicePartMapper;
 
 import java.util.Objects;
 

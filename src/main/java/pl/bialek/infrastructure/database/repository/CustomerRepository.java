@@ -11,6 +11,9 @@ import org.hibernate.Session;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.CustomerJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.InvoiceJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestMapper;
+import pl.bialek.infrastructure.database.repository.mapper.CustomerMapper;
+import pl.bialek.infrastructure.database.repository.mapper.InvoiceMapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +41,7 @@ public class CustomerRepository implements CustomerDAO {
 
         customer.getInvoices().stream()
                 .filter(invoice -> Objects.isNull(invoice.getInvoiceId()))
-                .map(invoiceEntityMapper::mapToEntity)
+                .map(invoiceMapper::mapToEntity)
                 .forEach(invoiceEntity -> {
                     invoiceEntity.setCustomer(customerSaved);
                     invoiceJpaRepository.saveAndFlush(invoiceEntity);

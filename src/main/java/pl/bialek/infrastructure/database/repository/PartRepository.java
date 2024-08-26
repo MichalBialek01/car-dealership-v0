@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.PartDAO;
 import pl.bialek.domain.Part;
 import pl.bialek.infrastructure.database.repository.jpa.PartJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.PartMapper;
 
 import java.util.Optional;
 

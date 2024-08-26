@@ -7,6 +7,7 @@ import pl.bialek.domain.CarHistory;
 import pl.bialek.domain.CarToService;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 import pl.bialek.infrastructure.database.repository.jpa.CarToServiceJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.CarToServiceMapper;
 
 import java.util.Optional;
 @Repository
@@ -31,6 +32,6 @@ public class CarToServiceRepository implements CarToServiceDAO {
     @Override
     public CarHistory findCarHistoryByVin(String vinNumber) {
         CarToServiceEntity carHistoryByVin = carToServiceJpaRepository.findCarHistoryByVin(vinNumber);
-        return carToServiceMapper.mapFromEntity(vin,carHistoryByVin);
+        return carToServiceMapper.mapFromEntity(vinNumber,carHistoryByVin);
     }
 }

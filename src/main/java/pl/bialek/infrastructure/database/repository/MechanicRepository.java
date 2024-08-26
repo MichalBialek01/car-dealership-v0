@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.MechanicDAO;
 import pl.bialek.domain.Mechanic;
 import pl.bialek.infrastructure.database.repository.jpa.MechanicJpaRepository;
+import pl.bialek.infrastructure.database.repository.mapper.MechanicMapper;
 
 import java.util.Optional;
 @Repository
